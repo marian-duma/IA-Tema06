@@ -4,7 +4,6 @@ from coppeliasim_zmqremoteapi_client import RemoteAPIClient
 V_BASE = 2.5
 SENSOR_MAX = 1.0
 
-
 LEFT_SENSORS  = [1, 2, 3] 
 RIGHT_SENSORS = [4, 5, 6]
 
@@ -37,17 +36,15 @@ def main():
     
     try:
         while True:
-            # 1. Calculăm intensitatea stimulului pe ambele părți
             i_left  = read_intensity(sim, sensors, LEFT_SENSORS)
             i_right = read_intensity(sim, sensors, RIGHT_SENSORS)
 
-            # 2. Conexiuni Ipsilaterale Inhibitorii
+            # Conexiuni Ipsilaterale Inhibitorii
             # Intensitatea stângă scade viteza roții stângi
             # Intensitatea dreaptă scade viteza roții drepte
             v_left  = V_BASE * (1.0 - i_left)
             v_right = V_BASE * (1.0 - i_right)
 
-            # 3. Trimitem comanda la motoare
             sim.setJointTargetVelocity(left_motor, v_left)
             sim.setJointTargetVelocity(right_motor, v_right)
 
